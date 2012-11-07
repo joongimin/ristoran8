@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @menu_item.name %></h1>
+<p>
+  <b>Price:</b>
+  <%= @menu_item.price %>원
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @menu_item.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_menu_item_path(@menu_item) %> |
+<%= link_to 'Back', restaurant_menu_category_path(@menu_item.menu_category.restaurant, @menu_item.menu_category) %>

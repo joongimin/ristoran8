@@ -1,0 +1,11 @@
+<%= rails_env %>:
+  adapter: mysql2
+  encoding: utf8
+  database: <%= mysql_database %>
+  pool: 5
+  username: <%= mysql_user %>
+  password: <%= mysql_password %>
+  host: <%= mysql_host %>
+  collation: utf8_general_ci
+  port: 3306
+  socket: /var/run/mysqld/mysqld.sock

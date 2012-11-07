@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+<h1><%= @menu_category.name %></h1>
+<p>
+  <b>Menu Items</b>
+  <ul>
+    <% @menu_category.menu_items.each do |menu_item| %>
+      <li><%= link_to menu_item.name, [@menu_category.restaurant, @menu_category, menu_item] %> <%= menu_item.price %>원</li>
+    <% end %>
+  </ul>
+  <%= link_to "New Menu Item", new_restaurant_menu_category_menu_item_path(@menu_category.restaurant, @menu_category) %>
+</p>
+
+
+<%= link_to 'Edit', edit_menu_category_path(@menu_category) %> |
+<%= link_to 'Back', menu_categories_path %>
