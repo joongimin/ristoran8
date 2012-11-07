@@ -1,4 +1,6 @@
 Ristoran8::Application.routes.draw do
+  resources :images
+
   resources :restaurants do
     resources :menu_categories, :only => [:show, :edit, :new] do
       resources :menu_items, :only => [:show, :edit, :new]

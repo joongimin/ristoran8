@@ -1,0 +1,16 @@
+defaults: &defaults
+  aws_access_key_id: "AKIAJFOBK2UY5AO6K4YA"
+  aws_secret_access_key: "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"
+  aws_s3_bucket_name: ristoran8
+
+development:
+  <<: *defaults
+  carrierwave_base_path: "development/uploads"
+
+test:
+  <<: *defaults
+  carrierwave_base_path: "test/uploads"
+
+production:
+  <<: *defaults
+  carrierwave_base_path: "production/uploads"

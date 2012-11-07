@@ -4,6 +4,11 @@
   <% else %>
     <h1><%= @restaurant.name %></h1>
     <p class="restaurant_description"><%= @restaurant.description %></p>
+    <p>
+      <% @restaurant.images each do |image| %>
+        <%= image_tag image %>
+      <% end %>
+    </p>
     <p><%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %></p>
     <p>
       <b>Menu Categories</b>

@@ -13,11 +13,6 @@ namespace :nginx do
     roles[:web].servers.each do |server|
       set :server_host, server
       template "nginx_unicorn.erb", "/etc/nginx/sites-enabled/#{application}", :use_temp_file => true
-      run "#{sudo} mkdir -p #{shared_path}/keys"
-      run "#{sudo} chown #{user}:#{user} #{shared_path}/keys"
-      run "#{sudo} mkdir -p #{shared_path}/keys/ssl"
-      run "#{sudo} chown #{user}:#{user} #{shared_path}/keys/ssl"
-      system "scp keys/ssl/#{root_url}.* #{user}@#{server.host}:/#{shared_path}/keys/ssl"
     end
     restart
   end

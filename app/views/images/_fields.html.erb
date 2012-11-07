@@ -1,0 +1,5 @@
+<div class="fields">
+  <%= image_tag(f.object.image_url, :style => "max-width: 150px; max-height: 100px;") if f.object.image? %>
+  <%= f.file_field :image %>
+  <%= link_to_remove_fields "Remove", f %>
+</div>

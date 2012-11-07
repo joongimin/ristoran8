@@ -14,9 +14,7 @@ namespace :mysql do
     template "mysql.cnf.erb", "/etc/mysql/conf.d/#{application}.cnf", :use_temp_file => true
     run "#{sudo} service mysql restart"
   end
-  if rails_env == "test"
-    after "deploy:install", "mysql:install"
-  end
+  after "deploy:install", "mysql:install"
 
   desc "Install the latest stable release of MySQL client."
   task :install_client, roles: :db do

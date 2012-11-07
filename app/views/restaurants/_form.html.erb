@@ -12,12 +12,19 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %>asdf<br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
+    <%= f.label :descripion %><br />
     <%= f.text_field :description %>
+  </div>
+  asdkf
+  <div class="field">
+    <%= f.fields_for :images do |b| %>
+      <%= render "images/fields", :f => b %>
+    <% end %>
+    <%= link_to_add_fields "Add Image", f, :images %>
   </div>
   <div class="actions">
     <%= f.submit %>
