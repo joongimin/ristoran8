@@ -2,6 +2,11 @@
 
 <h1><%= @menu_item.name %></h1>
 <p>
+  <b>Images:</b>
+  <% @menu_item.images.each do |image| %>
+    <%= image_tag image.image_url %>
+  <% end %>
+<p>
   <b>Price:</b>
   <%= @menu_item.price %>원
 </p>

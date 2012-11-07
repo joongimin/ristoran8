@@ -2,13 +2,13 @@ Ristoran8::Application.routes.draw do
   resources :images
 
   resources :restaurants do
-    resources :menu_categories, :only => [:show, :edit, :new] do
-      resources :menu_items, :only => [:show, :edit, :new]
+    resources :menu_categories, :only => [:show, :new] do
+      resources :menu_items, :only => [:show, :new]
     end
   end
 
-  resources :menu_categories, :except => [:show, :edit, :new]
-  resources :menu_items
+  resources :menu_categories, :except => [:show, :new]
+  resources :menu_items, :except => [:show, :new]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

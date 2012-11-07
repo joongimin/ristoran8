@@ -44,7 +44,7 @@ class MenuItemsController < ApplicationController
 
     respond_to do |format|
       if @menu_item.save
-        format.html { redirect_to @menu_item, notice: 'Menu item was successfully created.' }
+        format.html { redirect_to [@menu_item.menu_category.restaurant, @menu_item.menu_category, @menu_item], notice: 'Menu item was successfully created.' }
         format.json { render json: @menu_item, status: :created, location: @menu_item }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class MenuItemsController < ApplicationController
 
     respond_to do |format|
       if @menu_item.update_attributes(params[:menu_item])
-        format.html { redirect_to @menu_item, notice: 'Menu item was successfully updated.' }
+        format.html { redirect_to [@menu_item.menu_category.restaurant, @menu_item.menu_category, @menu_item], notice: 'Menu item was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
