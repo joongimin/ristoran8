@@ -1,4 +1,4 @@
-<%= nested_form_for(@menu_item) do |f| %>
+<%= nested_form_for(@menu_item, :html => {:multipart => true}) do |f| %>
   <% if @menu_item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@menu_item.errors.count, "error") %> prohibited this menu_item from being saved:</h2>
