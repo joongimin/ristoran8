@@ -1,9 +1,9 @@
 set_default(:mysql_host, "localhost")
-set_default(:mysql_user) { "nuvo" }
-set_default(:mysql_root_password) { "welcome2nv" }
-set_default(:mysql_password) { "welcome2nv" }
-set_default(:mysql_production_database) { "nouvaux" }
-set_default(:mysql_production_host) { "db2.xnuvo.com" }
+set_default(:mysql_user) { "ristoran8" }
+set_default(:mysql_root_password) { "ristoran8" }
+set_default(:mysql_password) { "ristoran8" }
+set_default(:mysql_production_database) { "ristoran8" }
+set_default(:mysql_production_host) { "localhost" }
 
 namespace :mysql do
   desc "Install the latest stable release of MySQL."
