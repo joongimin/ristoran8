@@ -33,6 +33,4 @@ after_fork do |server, worker|
   if defined?(ActiveRecord::Base)
     ActiveRecord::Base.establish_connection
   end
-  $redis = Redis::Namespace.new("nuvo-rails", :redis => Redis.new)
-  $redis.client.connect
 end
