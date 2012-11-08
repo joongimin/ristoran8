@@ -1,4 +1,6 @@
 Ristoran8::Application.routes.draw do
+  resources :orders
+
   resources :images
 
   resources :restaurants do
