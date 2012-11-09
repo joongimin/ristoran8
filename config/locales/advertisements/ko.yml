@@ -1,0 +1,5 @@
+ko:
+  advertisements:
+    created: "%{menu_item}에 대한 광고가 생성되었습니다."
+    updated: "광고가 변경되었습니다."
+    complete: "완료"

@@ -82,9 +82,24 @@ class OrdersController < ApplicationController
   end
 
   def complete
-    @current_table.active_order.update_attribute(:order_status, OrderStatus::REQUESTED)
+    @order = @current_table.active_order
+    @order.update_attribute(:order_status, OrderStatus::REQUESTED)
+
+    advertisements = Advertisement.
+      joins("inner join menu_items on menu_items.id = advertisements.menu_item_id").
+      joins("inner join sub_orders on menu_items.id = sub_orders.menu_item_id").
+      where("sub_orders.order_id = ?", @order.id)
+
+    @advertisement = advertisements[rand(advertisements.length)]
+
     respond_to do |format|
-      format.html { redirect_to @current_table.restaurant, notice: I18n.t("orders.complete") }
+      format.html {
+        if @advertisement.nil?
+          redirect_to @current_table.restaurant, notice: I18n.t("orders.complete")
+        else
+          redirect_to @advertisement, notice: I18n.t("orders.complete")
+        end
+      }
     end
   end
 

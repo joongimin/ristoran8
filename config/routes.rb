@@ -1,4 +1,6 @@
 Ristoran8::Application.routes.draw do
+  resources :advertisements, :except => [:index]
+
   devise_for :users, :controllers => {
     :sessions => "users/sessions",
   }

@@ -4,6 +4,8 @@
   <% @menu_item.images.each do |image| %>
     <%= image_tag image.image_url %>
   <% end %>
+</p>
+
 <p>
   <b>Price:</b>
   <%= @menu_item.price %>원
@@ -24,3 +26,15 @@
   <% end %>
 <% end %>
 <%= link_to 'Back', restaurant_menu_category_path(@menu_item.menu_category.restaurant, @menu_item.menu_category) %>
+
+<% if is_user? && current_user == @menu_item.user %>
+<p>
+  <b>Advertisement</b>
+  <ul>
+    <% @menu_item.advertisements.each do |advertisement| %>
+      <li><%= link_to advertisement.name, advertisement %></li>
+    <% end %>
+  </ul>
+  <%= link_to t("advertisements.new_advertisement"), new_advertisement_path(:menu_item_id => @menu_item.id) %>
+</p>
+<% end %>

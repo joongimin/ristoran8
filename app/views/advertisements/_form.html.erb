@@ -1,24 +1,20 @@
-<%= nested_form_for(@menu_item, :html => {:multipart => true}) do |f| %>
-  <% if @menu_item.errors.any? %>
+<%= nested_form_for(@advertisement) do |f| %>
+  <% if @advertisement.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@menu_item.errors.count, "error") %> prohibited this menu_item from being saved:</h2>
+      <h2><%= pluralize(@advertisement.errors.count, "error") %> prohibited this advertisement from being saved:</h2>
 
       <ul>
-      <% @menu_item.errors.full_messages.each do |msg| %>
+      <% @advertisement.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
-  <%= f.hidden_field :menu_category_id %>
+  <%= f.hidden_field :menu_item_id %>
 
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :price %><br />
-    <%= f.number_field :price %>
   </div>
   <div class="field">
     <%= f.label :description %><br />

@@ -1,0 +1,21 @@
+<h1><%= @advertisement.name %></h1>
+
+<p>
+  <b>Images:</b>
+  <% @advertisement.images.each do |image| %>
+    <%= image_tag image.image_url %>
+  <% end %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @advertisement.description %>
+</p>
+
+
+<% if is_user? && current_user = @advertisement.user %>
+  <%= link_to 'Edit', edit_advertisement_path(@advertisement) %> |
+  <%= link_to 'Back', restaurant_menu_category_menu_item_path(@advertisement.menu_item.menu_category.restaurant, @advertisement.menu_item.menu_category, @advertisement.menu_item) %>
+<% elsif is_table? %>
+  <%= link_to t("advertisements.done"), @advertisement.menu_item.menu_category.restaurant %>
+<% end %>
