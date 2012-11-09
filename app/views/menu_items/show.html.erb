@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= @menu_item.name %></h1>
 <p>
   <b>Images:</b>
@@ -16,6 +14,13 @@
   <%= @menu_item.description %>
 </p>
 
-
-<%= link_to 'Edit', edit_menu_item_path(@menu_item) %> |
+<% if is_user? && current_user == @menu_item.user %>
+  <%= link_to 'Edit', edit_restaurant_menu_category_menu_item_path(@menu_item.menu_category.restaurant, @menu_item.menu_category.restaurant, @menu_item) %> |
+<% end %>
+<% if is_table? %>
+  <%= form_for SubOrder.new(:menu_item_id => @menu_item.id) do |f| %>
+    <%= f.hidden_field :menu_item_id %>
+    <%= f.submit "주문에 추가" %>
+  <% end %>
+<% end %>
 <%= link_to 'Back', restaurant_menu_category_path(@menu_item.menu_category.restaurant, @menu_item.menu_category) %>

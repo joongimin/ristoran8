@@ -1,8 +1,10 @@
 class RestaurantsController < ApplicationController
+  before_filter :require_to_be_restaurant_owner, :except => [:index, :show]
+
   # GET /restaurants
   # GET /restaurants.json
   def index
-    @restaurant = Restaurant.first
+    @restaurants = Restaurant.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +16,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1.json
   def show
     @restaurant = Restaurant.find(params[:id])
+    @current_restaurant = @restaurant
 
     respond_to do |format|
       format.html # show.html.erb

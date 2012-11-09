@@ -1,15 +1,85 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Ristoran8</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Ristoran8</title>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <% if user_signed_in? %>
+      <% if @current_table.nil? %>
+        Logged in as <strong><%= current_user.email %></strong>.
+        <%= link_to 'Edit profile', edit_user_registration_path %> |
+      <% else %>
+        Logged in as <strong><%= @current_table.restaurant.name %>'s Table #<%= @current_table.position %></strong>.
+      <% end %>
+      <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path %> |
+      <%= link_to "Login", new_user_session_path %>
+    <% end %>
 
-<%= yield %>
-<%= jquery_include_tag :google %>
-<%= javascript_include_tag "application" %>
+    <p id="notice"><%= notice %></p>
+    <p id="alert"><%= alert %></p>
 
-</body>
+    <%= yield %>
+    <%= jquery_include_tag :google %>
+    <%= javascript_include_tag "application" %>
+    <% if is_table? %>
+      <div id="active_order" class="order_container">
+        <b>주문내역:</b>
+        <% if !@current_table.active_order.sub_orders.empty? %>
+          <div class="sub_orders">
+            <table>
+              <% @current_table.active_order.sub_orders.each do |sub_order| %>
+                <%= content_tag_for :tr, sub_order do %>
+                  <td><%= sub_order.menu_item.name %></td>
+                  <td class="count"><%= sub_order.count %></td>
+                  <td><%= link_to "+", increment_sub_order_path(sub_order), :method => :put, :remote => true %></td>
+                  <td>
+                    <%
+                    link_args = {:method => :put, :remote => true, :class => "link_decrement"}
+                    link_args = link_args.merge(:data => {:confirm => I18n.t("menu_items.confirm_delete", :menu_item => sub_order.menu_item.name)}) if sub_order.count == 1
+                    %>
+                    <%= link_to "-", decrement_sub_order_path(sub_order), link_args %>
+                  </td>
+                <% end %>
+              <% end %>
+            </table>
+            <%= form_tag complete_orders_path, :method => :put do %>
+              <%= submit_tag "주문 완료" %>
+            <% end %>
+          </div>
+        <% else %>
+          <%= t("orders.no_order") %>
+        <% end %>
+      </div>
+    <% elsif is_user? && !@current_restaurant.nil? %>
+      <div id="requested_order" class="order_container">
+        <b>주문내역:</b>
+        <% if !@current_restaurant.requested_orders.empty? %>
+          <% @current_restaurant.requested_orders.each do |order| %>
+            <div class="order">
+              <b> <%= I18n.t("tables.table", :table => order.table.position) %></b>
+              <div> <%= I18n.t("orders.requested_at") %>: <%= I18n.l(order.created_at.in_time_zone(ActiveSupport::TimeZone.new("Seoul")), :format => :short) %></div>
+              <div> <%= I18n.t("orders.requested_at") %>:</div>
+              <table>
+                <% order.sub_orders.each do |sub_order| %>
+                  <%= content_tag_for :tr, sub_order do %>
+                    <td><%= sub_order.menu_item.name %></td>
+                    <td class="count"><%= sub_order.count %></td>
+                  <% end %>
+                <% end %>
+              </table>
+              <%= form_tag confirm_order_path(order), :method => :put do %>
+                <%= submit_tag "주문 확인" %>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= t("orders.no_order") %>
+        <% end %>
+      </div>
+    <% end %>
+  </body>
 </html>

@@ -1,15 +1,46 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @restaurant.name %></h1>
+<p class="restaurant_description"><%= @restaurant.description %></p>
+<p>
+  <% @restaurant.images.each do |image| %>
+    <%= image_tag image.image_url %>
+  <% end %>
+</p>
+<% if is_user? && current_user == @restaurant.user %>
+  <p><%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %></p>
+<% end %>
+
+<br />
 
 <p>
-  <b>Name:</b>
-  <%= @restaurant.name %>
+  <b>Menu Categories</b>
+  <ul>
+    <% @restaurant.menu_categories.each do |menu_category| %>
+      <li><%= link_to menu_category.name, [@restaurant, menu_category] %></li>
+    <% end %>
+  </ul>
+  <% if is_user? && current_user == @restaurant.user %>
+    <%= link_to "New Menu Category", new_restaurant_menu_category_path(@restaurant) %>
+  <% end %>
 </p>
 
-<p>
-  <b>Description:</b>
-  <%= @restaurant.description %>
-</p>
+<% if is_user? && current_user == @restaurant.user %>
+  <br />
 
+  <p>
+    <b>Tables</b>
+    <ul>
+      <% @restaurant.tables.each do |table| %>
+        <li>
+          <%= link_to "Set this device as Table ##{table.position}", login_as_table_restaurant_table_path(@restaurant, table), :method => :put, :data => {:confirm => "You will have to log in again to use adminitrative tools. Do you wish to set this device as Table ##{table.position}?"} %>
+          <%= link_to "Edit", edit_restaurant_table_path(@restaurant, table) %>
+          <%= link_to "Destroy", table, :method => :delete, :data => {:confirm => "Are you sure?"} %>
+        </li>
+      <% end %>
+    </ul>
+    <%= link_to "New Table", new_restaurant_table_path(@restaurant) %>
+  </p>
+<% end %>
 
-<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'Back', restaurants_path %>
+<% if !is_table? %>
+  <%= link_to 'Back', restaurants_path %>
+<% end %>

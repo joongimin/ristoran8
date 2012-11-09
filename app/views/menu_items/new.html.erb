@@ -2,4 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Back', menu_items_path %>
+<%= link_to 'Back', restaurant_menu_category_path(@menu_item.menu_category.restaurant, @menu_item.menu_category) %>

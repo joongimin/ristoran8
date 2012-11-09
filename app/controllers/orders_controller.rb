@@ -80,4 +80,19 @@ class OrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def complete
+    @current_table.active_order.update_attribute(:order_status, OrderStatus::REQUESTED)
+    respond_to do |format|
+      format.html { redirect_to @current_table.restaurant, notice: I18n.t("orders.complete") }
+    end
+  end
+
+  def confirm
+    @order = Order.find(params[:id])
+    @order.update_attribute(:order_status, OrderStatus::CONFIRMED)
+    respond_to do |format|
+      format.html { redirect_to @order.restaurant, notice: I18n.t("orders.confirmed") }
+    end
+  end
 end

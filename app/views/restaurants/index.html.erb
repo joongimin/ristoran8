@@ -1,23 +1,34 @@
-<div>
-  <% if @restaurant.nil? %>
-    <p><%= link_to "Create Restaurant", new_restaurant_path %></p>
-  <% else %>
-    <h1><%= @restaurant.name %></h1>
-    <p class="restaurant_description"><%= @restaurant.description %></p>
-    <p>
-      <% @restaurant.images.each do |image| %>
-        <%= image_tag image.image_url %>
-      <% end %>
-    </p>
-    <p><%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %></p>
-    <p>
-      <b>Menu Categories</b>
-      <ul>
-        <% @restaurant.menu_categories.each do |menu_category| %>
-          <li><%= link_to menu_category.name, [@restaurant, menu_category] %></li>
-        <% end %>
-      </ul>
-      <%= link_to "New Menu Category", new_restaurant_menu_category_path(@restaurant) %>
-    </p>
+<h1>Listing restaurants</h1>
+
+<% if is_user? %>
+  <h2> My Restaurants </h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% current_user.restaurants.each do |restaurant| %>
+      <tr>
+        <td><%= link_to restaurant.name, restaurant %></td>
+        <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
+        <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <br />
+
+  <%= link_to 'New Restaurant', new_restaurant_path %>
+
+
+  <br />
+
+  <h2> All Restaurants </h2>
+<% end %>
+
+<ul>
+  <% @restaurants.each do |restaurant| %>
+    <li><%= link_to restaurant.name, restaurant %></li>
   <% end %>
-</div>
+</ul>

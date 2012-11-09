@@ -1,14 +1,5 @@
 class MenuItemsController < ApplicationController
-  # GET /menu_items
-  # GET /menu_items.json
-  def index
-    @menu_items = MenuItem.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @menu_items }
-    end
-  end
+  before_filter :require_to_be_restaurant_owner, :except => [:show]
 
   # GET /menu_items/1
   # GET /menu_items/1.json

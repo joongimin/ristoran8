@@ -1,0 +1,3 @@
+en:
+  menu_items:
+    confirm_delete: "Do you want to cancel %{menu_item}?"

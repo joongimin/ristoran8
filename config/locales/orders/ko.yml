@@ -1,0 +1,6 @@
+ko:
+  orders:
+    complete: "카운터에 주문을 요청했습니다."
+    confirmed: "주문을 확인했습니다."
+    no_order: "없음"
+    requested_at: "주문 시간"

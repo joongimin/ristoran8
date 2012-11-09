@@ -10,3 +10,6 @@ window.add_fields = (link, is_collection, association, content) ->
   $(link).trigger("fields:added")
   if !is_collection
     $(link).hide()
+
+class @TestUtil
+  test: ->

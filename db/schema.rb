@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107162931) do
+ActiveRecord::Schema.define(:version => 20121108093518) do
 
   create_table "images", :force => true do |t|
     t.string   "image"
@@ -41,11 +41,55 @@ ActiveRecord::Schema.define(:version => 20121107162931) do
 
   add_index "menu_items", ["menu_category_id"], :name => "index_menu_items_on_menu_category_id"
 
+  create_table "orders", :force => true do |t|
+    t.integer  "order_status"
+    t.integer  "table_id"
+    t.integer  "restaurant_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
   create_table "restaurants", :force => true do |t|
     t.string   "name",        :limit => 50
     t.string   "description", :limit => 300
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
+    t.integer  "user_id"
   end
+
+  add_index "restaurants", ["user_id"], :name => "index_restaurants_on_user_id"
+
+  create_table "sub_orders", :force => true do |t|
+    t.integer  "order_id"
+    t.integer  "menu_item_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "count"
+  end
+
+  create_table "tables", :force => true do |t|
+    t.integer  "position"
+    t.integer  "restaurant_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

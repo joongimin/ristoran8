@@ -1,0 +1,3 @@
+ko:
+  tables:
+    table: "테이블 #%{table}"

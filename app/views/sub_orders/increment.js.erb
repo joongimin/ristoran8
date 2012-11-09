@@ -1,0 +1,8 @@
+TestUtil.prototype.test();
+var sub_order = $("#sub_order_<%= @sub_order.id %>");
+sub_order.find("td.count").text(<%= @sub_order.count %>);
+<% if @sub_order.count == 1 %>
+  sub_order.find("a.link_decrement").data("confirm", "<%= I18n.t("menu_items.confirm_delete", :menu_item => @sub_order.menu_item.name) %>");
+<% else %>
+  sub_order.find("a.link_decrement").data("confirm", null);
+<% end %>

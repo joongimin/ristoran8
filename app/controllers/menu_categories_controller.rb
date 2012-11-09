@@ -1,4 +1,6 @@
 class MenuCategoriesController < ApplicationController
+  before_filter :require_to_be_restaurant_owner, :except => [:index, :show]
+
   # GET /menu_categories
   # GET /menu_categories.json
   def index
@@ -60,7 +62,7 @@ class MenuCategoriesController < ApplicationController
 
     respond_to do |format|
       if @menu_category.update_attributes(params[:menu_category])
-        format.html { redirect_to @menu_category, notice: 'Menu category was successfully updated.' }
+        format.html { redirect_to @menu_category.restaurant, notice: 'Menu category was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

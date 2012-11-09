@@ -11,3 +11,18 @@
  *= require_self
  *= require_tree .
  */
+
+.order_container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 200px;
+  border: 1px solid grey;
+  padding: 10px;
+}
+
+.order {
+  margin: 10px 0;
+  padding: 10px 0;
+  border-top: 1px solid grey;
+}
