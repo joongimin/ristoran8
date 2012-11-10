@@ -1,5 +1,5 @@
 class Restaurant < ActiveRecord::Base
-  attr_accessible :description, :name, :images_attributes
+  attr_accessible :description, :name, :images_attributes, :user_id
 
   belongs_to :user
   has_many :menu_categories
@@ -16,10 +16,17 @@ class Restaurant < ActiveRecord::Base
   end
 
   def api_list_data
-    {
+    result = {
       :restaurant_id => id,
-      :name => name
+      :name => name,
+      :description => description,
     }
+
+    if !images.empty?
+      result[:image_url] = images.first.image_url
+    end
+
+    result
   end
 
   def api_data
