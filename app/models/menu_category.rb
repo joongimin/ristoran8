@@ -11,7 +11,8 @@ class MenuCategory < ActiveRecord::Base
   def api_data
     result = {
       :menu_category_id => id,
-      :name => name
+      :name => name,
+      :description => description
     }
 
     result[:menu_item] = []
