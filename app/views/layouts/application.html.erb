@@ -60,18 +60,21 @@
         <% if !@current_restaurant.requested_orders.empty? %>
           <% @current_restaurant.requested_orders.each do |order| %>
             <div class="order">
-              <b> <%= I18n.t("tables.table", :table => order.table.position) %></b>
-              <div> <%= I18n.t("orders.requested_at") %>: <%= I18n.l(order.created_at.in_time_zone(ActiveSupport::TimeZone.new("Seoul")), :format => :short) %></div>
-              <div> <%= I18n.t("orders.requested_at") %>:</div>
-              <table>
-                <% order.sub_orders.each do |sub_order| %>
-                  <%= content_tag_for :tr, sub_order do %>
-                    <td><%= sub_order.menu_item.name %></td>
-                    <td class="count"><%= sub_order.count %></td>
-                  <% end %>
-                <% end %>
-              </table>
               <%= form_tag confirm_order_path(order), :method => :put do %>
+                <b> <%= I18n.t("tables.table", :table => order.table.position) %></b>
+                <div> <%= I18n.t("orders.requested_at") %>: <%= I18n.l(order.created_at.in_time_zone(ActiveSupport::TimeZone.new("Seoul")), :format => :short) %></div>
+                <div> <%= I18n.t("orders.requested_at") %>:</div>
+                <table>
+                  <% order.sub_orders.each do |sub_order| %>
+                    <% if sub_order.order_status == OrderStatus::REQUESTED %>
+                      <%= content_tag_for :tr, sub_order do %>
+                        <td><%= sub_order.menu_item.name %></td>
+                        <td class="count"><%= sub_order.count %></td>
+                        <td><%= check_box_tag "sub_orders[#{sub_order.id}]" %></td>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </table>
                 <%= submit_tag "주문 확인" %>
               <% end %>
             </div>

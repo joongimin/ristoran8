@@ -2,3 +2,5 @@
 tmp
 .routes
 *.log
+*.sublime-project
+*.sublime-workspace

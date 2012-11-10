@@ -84,6 +84,7 @@ class OrdersController < ApplicationController
   def complete
     @order = @current_table.active_order
     @order.update_attribute(:order_status, OrderStatus::REQUESTED)
+    @order.sub_orders.update_all(:order_status => OrderStatus::REQUESTED)
 
     advertisements = Advertisement.
       joins("inner join menu_items on menu_items.id = advertisements.menu_item_id").
@@ -105,7 +106,16 @@ class OrdersController < ApplicationController
 
   def confirm
     @order = Order.find(params[:id])
-    @order.update_attribute(:order_status, OrderStatus::CONFIRMED)
+    if !params[:sub_orders].nil?
+      params[:sub_orders].each do |sub_order_data|
+        sub_order_id = sub_order_data.first
+        logger.debug "sub_order_id #{sub_order_id}"
+        logger.debug "@order.sub_orders.find(sub_order_id) #{@order.sub_orders.find(sub_order_id)}"
+        @order.sub_orders.find(sub_order_id).update_attribute(:order_status, OrderStatus::CONFIRMED)
+        logger.debug "@order.sub_orders.find(sub_order_id).order_status #{@order.sub_orders.find(sub_order_id).order_status}"
+      end
+    end
+    @order.update_attribute(:order_status, OrderStatus::CONFIRMED) if @order.sub_orders.where("order_status <> #{OrderStatus::CONFIRMED}").empty?
     respond_to do |format|
       format.html { redirect_to @order.restaurant, notice: I18n.t("orders.confirmed") }
     end
