@@ -1,5 +1,6 @@
 <h1><%= @menu_category.name %></h1>
 <h2><%= @menu_category.description %></h2>
+<p><%= image_tag(@menu_category.image_url) if @menu_category.image? %></p>
 <p>
   <b>Menu Items</b>
   <ul>

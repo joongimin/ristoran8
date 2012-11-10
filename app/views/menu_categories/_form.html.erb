@@ -1,4 +1,4 @@
-<%= form_for(@menu_category) do |f| %>
+<%= form_for(@menu_category, :html => {:multipart => true}) do |f| %>
   <% if @menu_category.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@menu_category.errors.count, "error") %> prohibited this menu_category from being saved:</h2>
@@ -20,6 +20,15 @@
   <div class="field">
     <%= f.label :description %><br />
     <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image %><br />
+    <%= f.file_field :image %>
+    <% if @menu_category.image? %>
+      <%= image_tag(@menu_category.image_url) %>
+      <%= f.check_box :remove_image %> Remove
+    <% end %>
   </div>
 
   <div class="actions">

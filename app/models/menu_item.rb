@@ -13,7 +13,8 @@ class MenuItem < ActiveRecord::Base
   def api_data
     result = {
       :menu_item_id => id,
-      :name => name
+      :name => name,
+      :price => price
     }
 
     if !images.empty?
