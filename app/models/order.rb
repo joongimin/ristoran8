@@ -8,4 +8,18 @@ class Order < ActiveRecord::Base
   def restaurant
     table.restaurant
   end
+
+  def api_data
+    result = {
+      :order_id => id
+      :order_status => order_status
+    }
+
+    result[:sub_orders] = []
+    sub_orders.each do |sub_order|
+      result[:sub_orders] << sub_order.api_data
+    end
+
+    result
+  end
 end

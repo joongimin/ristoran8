@@ -14,4 +14,29 @@ class Restaurant < ActiveRecord::Base
   def requested_orders
     orders.where(:order_status => OrderStatus::REQUESTED)
   end
+
+  def api_list_data
+    {
+      :restaurant_id => id,
+      :name => name
+    }
+  end
+
+  def api_data
+    result = {
+      :restaurant_id => id,
+      :name => name
+    }
+
+    result[:menu_categories] = []
+    menu_categories.each do |menu_category|
+      result[:menu_categories] << menu_category.api_data
+    end
+
+    if !images.empty?
+      result[:image_url] = images.first.image_url
+    end
+
+    result
+  end
 end

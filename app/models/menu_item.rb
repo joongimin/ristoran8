@@ -9,4 +9,17 @@ class MenuItem < ActiveRecord::Base
   def user
     menu_category.user
   end
+
+  def api_data
+    result = {
+      :menu_item_id => id,
+      :name => name
+    }
+
+    if !images.empty?
+      result[:image_url] = images.first.image_url
+    end
+
+    result
+  end
 end

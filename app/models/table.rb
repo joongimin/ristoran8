@@ -13,4 +13,16 @@ class Table < ActiveRecord::Base
       orders.last
     end
   end
+
+  def create_sub_order(args)
+    order = active_order
+    sub_order = order.sub_orders.where(:menu_item_id => args[:menu_item_id]).first
+    if sub_order.nil?
+      sub_order = SubOrder.new(args.merge(:order => order, :count => 1, :order_status => OrderStatus::PENDING))
+    else
+      sub_order.increment(:count)
+    end
+
+    sub_order
+  end
 end

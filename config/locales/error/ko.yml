@@ -1,0 +1,6 @@
+ko:
+  error:
+    not_authorized: "이 기능을 사용할 수 없습니다."
+    invalid_request: "잘못된 요청입니다."
+    invalid_email_or_password: "이메일 혹은 비밀번호가 잘못되었습니다."
+    something_went_wrong: "요청을 처리하던 중 오류가 발생했습니다. 다시 시도해주세요."
