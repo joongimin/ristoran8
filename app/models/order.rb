@@ -11,7 +11,7 @@ class Order < ActiveRecord::Base
 
   def api_data
     result = {
-      :order_id => id
+      :order_id => id,
       :order_status => order_status
     }
 
