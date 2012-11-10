@@ -1,9 +1,11 @@
 class Api::V1::RestaurantsController < Api::V1::ApplicationController
   def index
-    result = []
+    result = {}
+    result[:restaurants] = []
     current_user.restaurants.each do |restaurant|
-      result << restaurant.api_list_data
+      result[:restaurants] << restaurant.api_list_data
     end
+
     respond_to do |format|
       format.json { render :json => result }
     end

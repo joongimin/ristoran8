@@ -25,4 +25,11 @@ class Table < ActiveRecord::Base
 
     sub_order
   end
+
+  def api_data
+    {
+      :table_id => id,
+      :position => position
+    }
+  end
 end

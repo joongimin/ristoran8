@@ -40,6 +40,11 @@ class Restaurant < ActiveRecord::Base
       result[:menu_categories] << menu_category.api_data
     end
 
+    result[:tables] = []
+    tables.each do |table|
+      result[:tables] << table.api_data
+    end
+
     if !images.empty?
       result[:image_url] = images.first.image_url
     end

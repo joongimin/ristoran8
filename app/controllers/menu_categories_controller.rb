@@ -46,7 +46,7 @@ class MenuCategoriesController < ApplicationController
 
     respond_to do |format|
       if @menu_category.save
-        format.html { redirect_to "/", notice: 'Menu category was successfully created.' }
+        format.html { redirect_to @menu_category.restaurant, notice: 'Menu category was successfully created.' }
         format.json { render json: @menu_category, status: :created, location: @menu_category }
       else
         format.html { render action: "new" }

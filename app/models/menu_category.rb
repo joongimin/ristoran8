@@ -1,5 +1,5 @@
 class MenuCategory < ActiveRecord::Base
-  attr_accessible :name, :restaurant_id
+  attr_accessible :name, :description, :restaurant_id
 
   belongs_to :restaurant
   has_many :menu_items
