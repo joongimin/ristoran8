@@ -20,9 +20,9 @@ class MenuCategory < ActiveRecord::Base
       result[:image_url] = image_url
     end
 
-    result[:menu_item] = []
+    result[:menu_items] = []
     menu_items.each do |menu_item|
-      result[:menu_item] << menu_item.api_data
+      result[:menu_items] << menu_item.api_data
     end
 
     result
