@@ -4,3 +4,4 @@ tmp
 *.log
 *.sublime-project
 *.sublime-workspace
+data/sitemaps

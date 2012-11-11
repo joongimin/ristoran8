@@ -3,6 +3,7 @@
 <p>
   <% @restaurant.images.each do |image| %>
     <%= image_tag image.image_url %>
+    <%= image_tag image.image_url(:small) %>
   <% end %>
 </p>
 <% if is_user? && current_user == @restaurant.user %>

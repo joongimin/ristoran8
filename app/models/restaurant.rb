@@ -24,6 +24,7 @@ class Restaurant < ActiveRecord::Base
 
     if !images.empty?
       result[:image_url] = images.first.image_url
+      result[:small_image_url] = images.first.image_url(:small)
     end
 
     result
